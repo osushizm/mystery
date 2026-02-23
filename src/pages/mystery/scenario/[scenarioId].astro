@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../../../components/layout/BaseLayout.astro';
+import ScenarioEditor from '../../../components/murder-mystery/ScenarioEditor';
+import TimelineEditor from '../../../components/murder-mystery/TimelineEditor';
+import CardManager from '../../../components/murder-mystery/CardManager';
+import PDFExporter from '../../../components/murder-mystery/PDFExporter';
+
+const { scenarioId } = Astro.params;
+
+if (!scenarioId) {
+  return Astro.redirect('/mystery');
+}
+---
+
+<BaseLayout title="シナリオ編集">
+  <div class="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 p-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-8">
+        <a href="/mystery" class="text-blue-400 hover:text-blue-300 text-sm font-semibold">
+          ← シナリオ一覧に戻る
+        </a>
+      </div>
+
+      <div class="space-y-8">
+        {/* Scenario Editor */}
+        <div class="bg-slate-800 rounded-lg p-6 border border-slate-700">
+          <h1 class="text-3xl font-bold text-white mb-4">シナリオ編集</h1>
+          <ScenarioEditor client:load scenarioId={scenarioId} />
+        </div>
+
+        {/* PDF Export */}
+        <div class="bg-slate-800 rounded-lg p-6 border border-slate-700">
+          <PDFExporter client:load scenarioId={scenarioId} />
+        </div>
+
+        {/* Tabs for Timeline and Cards */}
+        <div class="bg-slate-800 rounded-lg p-6 border border-slate-700">
+          <div class="border-b border-slate-700 mb-6">
+            <div class="flex gap-4">
+              <button
+                class="tab-button px-4 py-2 text-white font-semibold border-b-2 border-blue-600 pb-2"
+                data-tab="timeline"
+              >
+                タイムライン
+              </button>
+              <button
+                class="tab-button px-4 py-2 text-slate-400 font-semibold border-b-2 border-transparent pb-2 hover:text-white transition"
+                data-tab="cards"
+              >
+                カード管理
+              </button>
+            </div>
+          </div>
+
+          <div id="timeline-tab" class="tab-content">
+            <TimelineEditor client:load scenarioId={scenarioId} />
+          </div>
+
+          <div id="cards-tab" class="tab-content hidden">
+            <CardManager client:load scenarioId={scenarioId} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.tab-button').forEach((button) => {
+      button.addEventListener('click', () => {
+        const tab = button.getAttribute('data-tab');
+
+        // Hide all tabs
+        document.querySelectorAll('.tab-content').forEach((content) => {
+          content.classList.add('hidden');
+        });
+
+        // Show selected tab
+        const selectedTab = document.getElementById(`${tab}-tab`);
+        if (selectedTab) {
+          selectedTab.classList.remove('hidden');
+        }
+
+        // Update button styles
+        document.querySelectorAll('.tab-button').forEach((btn) => {
+          btn.classList.remove('border-blue-600', 'text-white');
+          btn.classList.add('border-transparent', 'text-slate-400');
+        });
+        button.classList.add('border-blue-600', 'text-white');
+        button.classList.remove('border-transparent', 'text-slate-400');
+      });
+    });
+  </script>
+</BaseLayout>

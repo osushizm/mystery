@@ -1,0 +1,78 @@
+---
+import ThemeToggle from '../common/ThemeToggle.astro';
+import { siteConfig } from '../../utils/site';
+
+const currentPath = Astro.url.pathname;
+const navItems = siteConfig.navigation;
+---
+
+<header class="sticky top-0 z-50 bg-[rgb(var(--color-bg))] border-b border-[rgb(var(--color-border))] backdrop-blur-sm bg-opacity-90">
+  <nav class="container mx-auto px-4 py-4">
+    <div class="flex items-center justify-between">
+      <a href="/" class="text-2xl font-bold no-underline hover:no-underline">
+        {siteConfig.name}
+      </a>
+      
+      <div class="flex items-center gap-6">
+        <ul class="hidden md:flex items-center gap-6">
+          {navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class={`no-underline hover:text-[rgb(var(--color-primary))] transition-colors ${
+                  currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href))
+                    ? 'text-[rgb(var(--color-primary))] font-semibold'
+                    : ''
+                }`}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        
+        <ThemeToggle />
+        
+        <!-- Mobile menu button -->
+        <button
+          id="mobile-menu-button"
+          class="md:hidden p-2 rounded-lg hover:bg-[rgb(var(--color-card))]"
+          aria-label="メニューを開く"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+      <ul class="flex flex-col gap-4">
+        {navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class={`block no-underline hover:text-[rgb(var(--color-primary))] transition-colors ${
+                currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href))
+                  ? 'text-[rgb(var(--color-primary))] font-semibold'
+                  : ''
+              }`}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  mobileMenuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+</script>

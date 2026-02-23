@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import ScenarioEditor from '../../components/murder-mystery/ScenarioEditor';
+
+const { scenarioId } = Astro.params;
+
+if (!scenarioId) {
+  return Astro.redirect('/mystery');
+}
+---
+
+<BaseLayout title="シナリオ編集">
+  <ScenarioEditor client:load scenarioId={scenarioId} />
+</BaseLayout>

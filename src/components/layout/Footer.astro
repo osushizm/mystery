@@ -1,0 +1,42 @@
+---
+import { siteConfig } from "../../utils/site";
+
+const currentYear = new Date().getFullYear();
+const primarySocial = siteConfig.socialLinks.filter(
+  (link) => link.name === "GitHub" || link.name === "X"
+);
+---
+
+<footer class="bg-[rgb(var(--color-card))] border-t border-[rgb(var(--color-border))] mt-20">
+  <div class="container mx-auto px-4 py-8">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="text-center md:text-left">
+        <p class="text-[rgb(var(--color-secondary))]">
+          © {currentYear} {siteConfig.name}. All rights reserved.
+        </p>
+      </div>
+      
+      <div class="flex gap-6">
+        <a
+          href="/rss.xml"
+          class="text-[rgb(var(--color-secondary))] hover:text-[rgb(var(--color-primary))] transition-colors"
+          aria-label="RSS"
+        >
+          RSS
+        </a>
+        {primarySocial.map((link) => (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-[rgb(var(--color-secondary))] hover:text-[rgb(var(--color-primary))] transition-colors"
+            aria-label={link.name}
+          >
+            {link.name}
+          </a>
+        ))}
+
+      </div>
+    </div>
+  </div>
+</footer>

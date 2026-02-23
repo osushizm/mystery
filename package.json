@@ -1,0 +1,27 @@
+{
+  "name": "murder-mystery-creator",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "A web application for creating and managing murder mystery scenarios",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^12.6.12",
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^5.16.6",
+    "html2canvas": "^1.4.1",
+    "itty-router": "^5.0.22",
+    "jspdf": "^4.2.0",
+    "lucide-react": "^0.562.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tailwindcss": "^4.1.18",
+    "zod": "^4.3.6"
+  }
+}
