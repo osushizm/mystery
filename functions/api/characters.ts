@@ -1,9 +1,12 @@
 import { Router } from 'itty-router';
+import type { Env } from '../_middleware';
 
 const router = Router();
 
-// GET /api/scenarios/:scenarioId/characters - List characters
-router.get('/scenarios/:scenarioId/characters', async (request, env) => {
+type RequestWithParams = Request & { params: Record<string, string> };
+
+// GET /api/scenarios/:scenarioId/characters - 一覧取得
+router.get('/api/scenarios/:scenarioId/characters', async (request: RequestWithParams, env: Env) => {
   const { scenarioId } = request.params;
 
   try {
@@ -15,6 +18,7 @@ router.get('/scenarios/:scenarioId/characters', async (request, env) => {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
+    console.error(error);
     return new Response(JSON.stringify({ error: 'Failed to fetch characters' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
@@ -22,12 +26,12 @@ router.get('/scenarios/:scenarioId/characters', async (request, env) => {
   }
 });
 
-// POST /api/scenarios/:scenarioId/characters - Create character
-router.post('/scenarios/:scenarioId/characters', async (request, env) => {
+// POST /api/scenarios/:scenarioId/characters - 新規作成
+router.post('/api/scenarios/:scenarioId/characters', async (request: RequestWithParams, env: Env) => {
   const { scenarioId } = request.params;
 
   try {
-    const body = await request.json();
+    const body = await request.json() as { name?: string; role?: string; backstory?: string; goal?: string };
     const { name, role, backstory, goal } = body;
 
     if (!name) {
@@ -41,13 +45,14 @@ router.post('/scenarios/:scenarioId/characters', async (request, env) => {
 
     await env.DB.prepare(
       'INSERT INTO characters (id, scenario_id, name, role, backstory, goal) VALUES (?, ?, ?, ?, ?, ?)'
-    ).bind(id, scenarioId, name, role || null, backstory || null, goal || null).run();
+    ).bind(id, scenarioId, name, role ?? null, backstory ?? null, goal ?? null).run();
 
     return new Response(JSON.stringify({ id }), {
       status: 201,
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
+    console.error(error);
     return new Response(JSON.stringify({ error: 'Failed to create character' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
@@ -55,22 +60,23 @@ router.post('/scenarios/:scenarioId/characters', async (request, env) => {
   }
 });
 
-// PUT /api/scenarios/:scenarioId/characters/:characterId - Update character
-router.put('/scenarios/:scenarioId/characters/:characterId', async (request, env) => {
+// PUT /api/scenarios/:scenarioId/characters/:characterId - 更新
+router.put('/api/scenarios/:scenarioId/characters/:characterId', async (request: RequestWithParams, env: Env) => {
   const { scenarioId, characterId } = request.params;
 
   try {
-    const body = await request.json();
+    const body = await request.json() as { name?: string; role?: string; backstory?: string; goal?: string };
     const { name, role, backstory, goal } = body;
 
     await env.DB.prepare(
       'UPDATE characters SET name = ?, role = ?, backstory = ?, goal = ? WHERE id = ? AND scenario_id = ?'
-    ).bind(name || null, role || null, backstory || null, goal || null, characterId, scenarioId).run();
+    ).bind(name ?? null, role ?? null, backstory ?? null, goal ?? null, characterId, scenarioId).run();
 
     return new Response(JSON.stringify({ success: true }), {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
+    console.error(error);
     return new Response(JSON.stringify({ error: 'Failed to update character' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
@@ -78,8 +84,8 @@ router.put('/scenarios/:scenarioId/characters/:characterId', async (request, env
   }
 });
 
-// DELETE /api/scenarios/:scenarioId/characters/:characterId - Delete character
-router.delete('/scenarios/:scenarioId/characters/:characterId', async (request, env) => {
+// DELETE /api/scenarios/:scenarioId/characters/:characterId - 削除
+router.delete('/api/scenarios/:scenarioId/characters/:characterId', async (request: RequestWithParams, env: Env) => {
   const { scenarioId, characterId } = request.params;
 
   try {
@@ -91,6 +97,7 @@ router.delete('/scenarios/:scenarioId/characters/:characterId', async (request, 
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
+    console.error(error);
     return new Response(JSON.stringify({ error: 'Failed to delete character' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },

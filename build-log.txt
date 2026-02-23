@@ -1,0 +1,47 @@
+[2m23:55:36[22m [34m[@astrojs/cloudflare][39m Enabling sessions with Cloudflare KV with the "SESSION" KV binding.
+[2m23:55:36[22m [34m[@astrojs/cloudflare][39m If you see the error "Invalid binding `SESSION`" in your build output, you need to add the binding to your wrangler config file.
+[33m[1m23:55:36[22m [WARN] [adapter][39m Cloudflare does not support sharp at runtime. However, you can configure `imageService: "compile"` to optimize images with sharp on prerendered pages during build time.
+[2m23:55:36[22m [34m[content][39m Syncing content
+[2m23:55:36[22m [34m[content][39m Synced content
+[2m23:55:36[22m [34m[types][39m Generated [2m41ms[22m
+[2m23:55:36[22m [34m[build][39m output: [34m"server"[39m
+[2m23:55:36[22m [34m[build][39m mode: [34m"server"[39m
+[2m23:55:36[22m [34m[build][39m directory: [34mD:\obsidian\mystery\dist\[39m
+[2m23:55:36[22m [34m[build][39m adapter: [32m@astrojs/cloudflare[39m
+[2m23:55:36[22m [34m[build][39m Collecting build info...
+[2m23:55:36[22m [34m[build][39m [32m笨・Completed in 66ms.[39m
+[2m23:55:36[22m [34m[build][39m Building server entrypoints...
+[2m23:55:40[22m [34m[vite][39m [32m笨・built in 4.07s[39m
+[2m23:55:40[22m [34m[build][39m [32m笨・Completed in 4.10s.[39m
+
+[42m[30m building client (vite) [39m[49m
+[2m23:55:40[22m [34m[vite][39m transforming...
+[2m23:55:43[22m [34m[vite][39m [32m笨・[39m 1961 modules transformed.
+[2m23:55:43[22m [34m[vite][39m rendering chunks...
+[2m23:55:43[22m [34m[vite][39m computing gzip size...
+[2m23:55:43[22m [34m[vite][39m [2mdist/[22m[36m_astro/PDFExporter.D2FhVy8Q.js     [39m[1m[2m  0.12 kB[22m[1m[22m[2m 笏・gzip:   0.12 kB[22m
+[2m23:55:43[22m [34m[vite][39m [2mdist/[22m[36m_astro/x.CTe17Y_1.js               [39m[1m[2m  0.78 kB[22m[1m[22m[2m 笏・gzip:   0.38 kB[22m
+[2m23:55:43[22m [34m[vite][39m [2mdist/[22m[36m_astro/trash-2.jTUfPcDn.js         [39m[1m[2m  1.14 kB[22m[1m[22m[2m 笏・gzip:   0.46 kB[22m
+[2m23:55:43[22m [34m[vite][39m [2mdist/[22m[36m_astro/Dashboard.Bxv89z9o.js       [39m[1m[2m  3.73 kB[22m[1m[22m[2m 笏・gzip:   1.44 kB[22m
+[2m23:55:43[22m [34m[vite][39m [2mdist/[22m[36m_astro/api.B3J1HtKj.js             [39m[1m[2m  4.23 kB[22m[1m[22m[2m 笏・gzip:   1.52 kB[22m
+[2m23:55:43[22m [34m[vite][39m [2mdist/[22m[36m_astro/TimelineEditor.BTk596eD.js  [39m[1m[2m  5.22 kB[22m[1m[22m[2m 笏・gzip:   1.80 kB[22m
+[2m23:55:43[22m [34m[vite][39m [2mdist/[22m[36m_astro/ScenarioEditor.B4q6WQYM.js  [39m[1m[2m  6.39 kB[22m[1m[22m[2m 笏・gzip:   1.92 kB[22m
+[2m23:55:43[22m [34m[vite][39m [2mdist/[22m[36m_astro/CardManager.BPy4Wk1o.js     [39m[1m[2m  7.53 kB[22m[1m[22m[2m 笏・gzip:   2.44 kB[22m
+[2m23:55:43[22m [34m[vite][39m [2mdist/[22m[36m_astro/index.DiEladB3.js           [39m[1m[2m  7.85 kB[22m[1m[22m[2m 笏・gzip:   3.05 kB[22m
+[2m23:55:43[22m [34m[vite][39m [2mdist/[22m[36m_astro/purify.es.B9ZVCkUG.js       [39m[1m[2m 22.64 kB[22m[1m[22m[2m 笏・gzip:   8.75 kB[22m
+[2m23:55:43[22m [34m[vite][39m [2mdist/[22m[36m_astro/index.es.da5ITj-7.js        [39m[1m[2m159.64 kB[22m[1m[22m[2m 笏・gzip:  53.53 kB[22m
+[2m23:55:43[22m [34m[vite][39m [2mdist/[22m[36m_astro/client.Dc9Vh3na.js          [39m[1m[2m186.62 kB[22m[1m[22m[2m 笏・gzip:  58.54 kB[22m
+[2m23:55:43[22m [34m[vite][39m [2mdist/[22m[36m_astro/PDFExporter.yYY0R-uB.js     [39m[1m[33m600.29 kB[39m[22m[2m 笏・gzip: 179.28 kB[22m
+[33m[1m23:55:43[22m [WARN] [vite][39m [33m
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+[2m23:55:43[22m [34m[vite][39m [32m笨・built in 3.17s[39m
+
+[42m[30m prerendering static routes [39m[49m
+[2m23:55:43[22m [32m笨・Completed in 22ms.
+[39m
+[2m23:55:43[22m [34m[build][39m Rearranging server assets...
+[2m23:55:43[22m [34m[build][39m Server built in [1m7.38s[22m
+[2m23:55:43[22m [34m[build][39m [1mComplete![22m

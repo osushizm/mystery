@@ -1,11 +1,11 @@
 name = "murder-mystery-creator"
-main = "./dist/server/entry.mjs"
+main = "./dist/server/index.js"
 compatibility_date = "2026-01-06"
-compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
+compatibility_flags = ["nodejs_compat"]
 
 [assets]
 binding = "ASSETS"
-directory = "./dist"
+directory = "./dist/client"
 
 [observability]
 enabled = true
@@ -13,4 +13,7 @@ enabled = true
 [[d1_databases]]
 binding = "DB"
 database_name = "murder-mystery-db"
-database_id = "your-database-id"
+database_id = "your-database-id"  # wrangler d1 create murder-mystery-db で取得した ID に置き換えてください
+
+[build]
+command = "pnpm build"

@@ -1,9 +1,12 @@
 import { Router } from 'itty-router';
+import type { Env } from '../_middleware';
 
 const router = Router();
 
-// GET /api/scenarios/:scenarioId/timelines - List timelines
-router.get('/scenarios/:scenarioId/timelines', async (request, env) => {
+type RequestWithParams = Request & { params: Record<string, string> };
+
+// GET /api/scenarios/:scenarioId/timelines - 一覧取得
+router.get('/api/scenarios/:scenarioId/timelines', async (request: RequestWithParams, env: Env) => {
   const { scenarioId } = request.params;
 
   try {
@@ -15,6 +18,7 @@ router.get('/scenarios/:scenarioId/timelines', async (request, env) => {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
+    console.error(error);
     return new Response(JSON.stringify({ error: 'Failed to fetch timelines' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
@@ -22,21 +26,18 @@ router.get('/scenarios/:scenarioId/timelines', async (request, env) => {
   }
 });
 
-// POST /api/scenarios/:scenarioId/timelines - Create timeline
-router.post('/scenarios/:scenarioId/timelines', async (request, env) => {
+// POST /api/scenarios/:scenarioId/timelines - 新規作成
+router.post('/api/scenarios/:scenarioId/timelines', async (request: RequestWithParams, env: Env) => {
   const { scenarioId } = request.params;
 
   try {
-    const body = await request.json();
+    const body = await request.json() as { event_time?: string; event_description?: string };
     const { event_time, event_description } = body;
 
     if (!event_time || !event_description) {
       return new Response(
         JSON.stringify({ error: 'event_time and event_description are required' }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        }
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
@@ -51,6 +52,7 @@ router.post('/scenarios/:scenarioId/timelines', async (request, env) => {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
+    console.error(error);
     return new Response(JSON.stringify({ error: 'Failed to create timeline' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
@@ -58,22 +60,23 @@ router.post('/scenarios/:scenarioId/timelines', async (request, env) => {
   }
 });
 
-// PUT /api/scenarios/:scenarioId/timelines/:timelineId - Update timeline
-router.put('/scenarios/:scenarioId/timelines/:timelineId', async (request, env) => {
+// PUT /api/scenarios/:scenarioId/timelines/:timelineId - 更新
+router.put('/api/scenarios/:scenarioId/timelines/:timelineId', async (request: RequestWithParams, env: Env) => {
   const { scenarioId, timelineId } = request.params;
 
   try {
-    const body = await request.json();
+    const body = await request.json() as { event_time?: string; event_description?: string };
     const { event_time, event_description } = body;
 
     await env.DB.prepare(
       'UPDATE timelines SET event_time = ?, event_description = ? WHERE id = ? AND scenario_id = ?'
-    ).bind(event_time || null, event_description || null, timelineId, scenarioId).run();
+    ).bind(event_time ?? null, event_description ?? null, timelineId, scenarioId).run();
 
     return new Response(JSON.stringify({ success: true }), {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
+    console.error(error);
     return new Response(JSON.stringify({ error: 'Failed to update timeline' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
@@ -81,8 +84,8 @@ router.put('/scenarios/:scenarioId/timelines/:timelineId', async (request, env) 
   }
 });
 
-// DELETE /api/scenarios/:scenarioId/timelines/:timelineId - Delete timeline
-router.delete('/scenarios/:scenarioId/timelines/:timelineId', async (request, env) => {
+// DELETE /api/scenarios/:scenarioId/timelines/:timelineId - 削除
+router.delete('/api/scenarios/:scenarioId/timelines/:timelineId', async (request: RequestWithParams, env: Env) => {
   const { scenarioId, timelineId } = request.params;
 
   try {
@@ -94,6 +97,7 @@ router.delete('/scenarios/:scenarioId/timelines/:timelineId', async (request, en
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
+    console.error(error);
     return new Response(JSON.stringify({ error: 'Failed to delete timeline' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },

@@ -7,11 +7,20 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server', // Cloudflare Workersを利用
+  output: 'server', // Cloudflare Pages SSR
+
+  adapter: cloudflare({
+    platformProxy: {
+      enabled: true, // ローカル開発時に D1 などのバインディングを使用可能にする
+    },
+  }),
 
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    ssr: {
+      target: 'webworker',
+    },
   },
 
-  integrations: [react(), cloudflare()]
+  integrations: [react()],
 });
