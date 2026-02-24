@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../../../components/layout/BaseLayout.astro';
+import ClueManager from '../../../../components/murder-mystery/ClueManager';
+
+const { scenarioId } = Astro.params;
+
+if (!scenarioId) {
+  return Astro.redirect('/mystery');
+}
+---
+
+<BaseLayout title="手がかり管理">
+  <div class="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 p-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-8">
+        <a href="/mystery" class="text-blue-400 hover:text-blue-300 text-sm font-semibold flex items-center gap-2">
+          ← シナリオ一覧に戻る
+        </a>
+      </div>
+
+      <ClueManager client:load scenarioId={scenarioId} />
+    </div>
+  </div>
+</BaseLayout>

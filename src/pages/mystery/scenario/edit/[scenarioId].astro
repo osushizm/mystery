@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../../../components/layout/BaseLayout.astro';
+import ScenarioEditorTabs from '../../../../components/murder-mystery/ScenarioEditorTabs';
+import PDFExporter from '../../../../components/murder-mystery/PDFExporter';
+
+const { scenarioId } = Astro.params;
+
+if (!scenarioId) {
+  return Astro.redirect('/mystery');
+}
+---
+
+<BaseLayout title="シナリオ編集">
+  <div class="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 p-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-8">
+        <a href="/mystery" class="text-blue-400 hover:text-blue-300 text-sm font-semibold flex items-center gap-2">
+          ← シナリオ一覧に戻る
+        </a>
+      </div>
+
+      <div class="space-y-8">
+        {/* Main Editor with Tabs */}
+        <ScenarioEditorTabs client:load scenarioId={scenarioId} />
+
+        {/* PDF Export Section */}
+        <div class="bg-slate-800 rounded-lg p-6 border border-slate-700">
+          <PDFExporter client:load scenarioId={scenarioId} />
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

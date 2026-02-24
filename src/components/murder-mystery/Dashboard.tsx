@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Plus, Trash2, Edit2 } from 'lucide-react';
+import { Plus, Trash2, Edit2, Eye } from 'lucide-react';
 import { getScenarios, createScenario, deleteScenario } from '../../utils/api';
 
 interface Scenario {
@@ -134,8 +134,15 @@ export default function Dashboard() {
                   )}
                   <div className="flex gap-2">
                     <a
-                      href={`/scenario/${scenario.id}`}
+                      href={`/mystery/scenario/view/${scenario.id}`}
                       className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded text-center flex items-center justify-center gap-2 transition"
+                    >
+                      <Eye size={16} />
+                      表示
+                    </a>
+                    <a
+                      href={`/mystery/scenario/edit/${scenario.id}`}
+                      className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded text-center flex items-center justify-center gap-2 transition"
                     >
                       <Edit2 size={16} />
                       編集
