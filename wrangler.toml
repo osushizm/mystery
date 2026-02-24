@@ -12,7 +12,7 @@ enabled = true
 
 [[d1_databases]]
 binding = "DB"
-database_name = "murder-mystery-db"
+database_name = "murder-mystery-create-db"
 database_id = "0ce6ce02-e7e3-412e-83c0-e4ef84b483db"
 
 [build]
