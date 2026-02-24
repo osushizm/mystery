@@ -31,24 +31,7 @@ export const GET: APIRoute = async ({ locals }) => {
 
 // POST /api/scenarios
 export const POST: APIRoute = async ({ request, locals }) => {
-    // デバッグ: runtimeの構造を確認
-    const runtime = locals.runtime;
-    const env = runtime?.env;
-
-    if (!env?.DB) {
-        return new Response(JSON.stringify({
-            error: 'DB binding not found',
-            debug: {
-                hasRuntime: !!runtime,
-                envKeys: env ? Object.keys(env) : [],
-                localsKeys: Object.keys(locals),
-            }
-        }), {
-            status: 500,
-            headers: { 'Content-Type': 'application/json', ...corsHeaders },
-        });
-    }
-
+    const env = locals.runtime?.env;
     try {
         const body = await request.json() as { title?: string; description?: string };
         const { title, description } = body;
