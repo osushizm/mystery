@@ -21,8 +21,8 @@ export const GET: APIRoute = async ({ locals }) => {
             headers: { 'Content-Type': 'application/json', ...corsHeaders },
         });
     } catch (error) {
-        console.error(error);
-        return new Response(JSON.stringify({ error: 'Failed to fetch scenarios' }), {
+        console.error('GET /api/scenarios error:', error);
+        return new Response(JSON.stringify({ error: 'Failed to fetch scenarios', details: String(error) }), {
             status: 500,
             headers: { 'Content-Type': 'application/json', ...corsHeaders },
         });
@@ -53,8 +53,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
             headers: { 'Content-Type': 'application/json', ...corsHeaders },
         });
     } catch (error) {
-        console.error(error);
-        return new Response(JSON.stringify({ error: 'Failed to create scenario' }), {
+        console.error('POST /api/scenarios error:', error);
+        return new Response(JSON.stringify({ error: 'Failed to create scenario', details: String(error) }), {
             status: 500,
             headers: { 'Content-Type': 'application/json', ...corsHeaders },
         });

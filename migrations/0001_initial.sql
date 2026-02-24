@@ -1,5 +1,5 @@
-
--- 0002_create_murder_mystery_tables.sql
+-- 0001_initial.sql
+-- Initial migration for Murder Mystery Creator
 
 -- Scenarios Table
 CREATE TABLE IF NOT EXISTS scenarios (
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS timelines (
 CREATE TABLE IF NOT EXISTS cards (
     id TEXT PRIMARY KEY NOT NULL,
     scenario_id TEXT NOT NULL,
-    card_type TEXT NOT NULL, -- e.g., 'clue', 'item', 'information'
+    card_type TEXT NOT NULL,
     title TEXT NOT NULL,
     content TEXT NOT NULL,
     assigned_to_character_id TEXT,

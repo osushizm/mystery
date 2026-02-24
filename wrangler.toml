@@ -13,7 +13,7 @@ enabled = true
 [[d1_databases]]
 binding = "DB"
 database_name = "murder-mystery-db"
-database_id = "your-database-id"  # wrangler d1 create murder-mystery-db で取得した ID に置き換えてください
+database_id = "0ce6ce02-e7e3-412e-83c0-e4ef84b483db"
 
 [build]
 command = "pnpm build"
